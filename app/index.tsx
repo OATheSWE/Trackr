@@ -1,20 +1,21 @@
-import { Box, Image, Text } from "@mantine/core";
-import React from "react";
-///@ts-ignore
-import classes from './index.module.css';
-import { ImageCollection } from "@/assets";
-import { styles } from "@/src/data";
+import React, { useEffect, useState } from "react";
+import { Splash } from "@/src/views";
+import { Login } from "@/src/components";
 
+const Home = () => {
+  const [showSplash, setShowSplash] = useState(true);
 
-const home = () => {
-  return (
-      <Box className={`flex items-center justify-center bg-black flex-col h-full w-full overflow-x-hidden ${styles.body}`}>
-        <Text className={`font-semibold text-[20px] ${classes.style}`} ta={`center`} >
-          Open up index.tsx in your app folder to start working on your website, web app or app!
-        </Text>
-        <Image src={ImageCollection.logo} className={`object-cover w-[30%] mt-8`} />
-      </Box>
-  );
+  useEffect(() => {
+    // Set a timer to hide the splash screen after 5 seconds
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5000);
+
+    // Clear the timer if the component is unmounted
+    return () => clearTimeout(timer);
+  }, []);
+
+  return <div className="">{showSplash ? <Splash /> : <Login />}</div>;
 };
 
-export default home;
+export default Home;
