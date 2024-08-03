@@ -2,6 +2,7 @@
 
 // export {default as screen} from './screen';
 export * from './SplashScreen';
+export * from './STDash';
 
 
 

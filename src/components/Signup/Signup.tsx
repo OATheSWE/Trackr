@@ -19,15 +19,8 @@ import { api } from "@/src/api";
 const departments = [
   "Computer Science",
   "Electrical Engineering",
-  "Mechanical Engineering",
-  "Civil Engineering",
   "Business Administration",
-  "Economics",
-  "Law",
   "Medicine",
-  "Pharmacy",
-  "Physics",
-  "Mathematics",
 ];
 
 const Signup = () => {
@@ -137,6 +130,7 @@ const Signup = () => {
             error={form.errors.department}
             mb={`lg`}
             rightSectionWidth={0}
+            comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 } }}
           />
           <TextInput
             label="Email"
@@ -153,6 +147,7 @@ const Signup = () => {
             error={form.errors.userType}
             mb={`lg`}
             rightSectionWidth={0}
+            comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 } }}
           />
           <div className="flex justify-center items-center">
             <Button

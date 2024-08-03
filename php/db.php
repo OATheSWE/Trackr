@@ -1,7 +1,7 @@
 <?php
-header('Access-Control-Allow-Origin: http://localhost:8081/');
+// header('Access-Control-Allow-Origin: http://localhost:8081/');
 // header('Access-Control-Allow-Origin: https://krowdkontrollers.com.ng');
-// header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");

@@ -15,7 +15,7 @@ if ($result) {
     if ($row) {
         // Determine the redirect URL based on user type
         $userType = $row['user_type'];
-        $redirectUrl = ($userType === 'student') ? '/app/st-dash' : '/app/sp-dash';
+        $redirectUrl = ($userType === 'student') ? '/student/supervisors' : '/supervisor/students';
 
         // Respond with success and redirect URL
         echo json_encode([

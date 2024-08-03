@@ -6,6 +6,8 @@ export * from './Signup';
 export * from './Login';
 export * from './text-field';
 export * from './SuccessModal';
+export * from './ConfirmModal';
+export * from './Aside';
 
 
 
