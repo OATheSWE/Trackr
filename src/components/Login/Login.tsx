@@ -67,6 +67,7 @@ const Login = () => {
           secretKey
         ).toString();
         localStorage.setItem("ala", encryptedUserId);
+        localStorage.setItem("first-time", "true");
         setTimeout(() => {
           router.replace(response.data.link);
         }, 1500);
