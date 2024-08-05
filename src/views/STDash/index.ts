@@ -3,3 +3,4 @@
 //  I dey move am go base views folder
 export {default as Supervisors } from './Supervisors';
 export {default as Projects } from './Projects';
+export {default as Assignments } from './Assignments';

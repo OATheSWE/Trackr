@@ -1,6 +1,7 @@
 export const STLinks = [
     { text: "Supervisors", href: "/student/supervisors" },
     { text: "Projects", href: "/student/projects" },
+    { text: "Assignments", href: "/student/assignments" },
     { text: "Logout", href: "/student/supervisors" },
   ];
 

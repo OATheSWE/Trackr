@@ -146,7 +146,7 @@ export default function Aside({ asideLinks }) {
             className="block mx-auto px-4"
             bg={`#141c26`}
           >
-            {asideLinks.slice(0, 2).map((link, index) => (
+            {asideLinks.slice(0, 3).map((link, index) => (
               <Link
                 key={index}
                 href={`${link.href}`}

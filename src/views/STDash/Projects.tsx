@@ -260,7 +260,6 @@ const Projects = () => {
                     shadow="xl"
                     padding="lg"
                     className="mb-4 cursor-pointer bg-text text-black rounded-lg"
-                    onClick={() => router.push(project.topic_link)}
                   >
                     <Text className="capitalize">{project.topic_name}</Text>
                   </Card>
