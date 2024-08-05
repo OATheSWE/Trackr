@@ -2,7 +2,7 @@ import { Supervisors } from "@/src/views";
 
 const supervisors = () => {
   return (
-    <div className="">
+    <div className="h-">
       <Supervisors />
     </div>
   );

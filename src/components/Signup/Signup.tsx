@@ -20,7 +20,7 @@ const departments = [
   "Computer Science",
   "Electrical Engineering",
   "Business Administration",
-  "Medicine",
+  "Law",
 ];
 
 const Signup = () => {

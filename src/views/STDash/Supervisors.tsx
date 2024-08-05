@@ -193,7 +193,7 @@ const StudentDashboard = () => {
   });
 
   return (
-    <Container className={`py-32 ${styles.body} text-text bg-primary h-screen`}>
+    <Container className={`py-32 ${styles.body} text-text bg-primary h-full`}>
       <LoadingOverlay
         visible={visible}
         zIndex={1000}

@@ -1,8 +1,9 @@
 // Exporting Icons from IconImport.tsx
-import { Feather  } from "@expo/vector-icons";
+import { AntDesign, Feather  } from "@expo/vector-icons";
 
 const IconImports = {
   Location: (props: any) => <Feather name="map-pin" {...props} />,
+  Plus: (props: any) => <AntDesign name="plus" {...props} />,
   
 
 };

@@ -3,14 +3,15 @@
 export const onBoardD = [
   {
     id: 1,
-    text: "Convenient and Effortless Picking of Supervisors",
+    text: "Easily Choose Your Supervisors",
   },
   {
     id: 2,
-    text: "Select Project Topics & Submit Proposals",
+    text: "Pick Your Project Topics & Submit Proposals",
   },
   {
     id: 3,
-    text: "Easy Uploading of Final Year Projects",
+    text: "Effortlessly Upload Your Final Year Projects",
   },
 ];
+
