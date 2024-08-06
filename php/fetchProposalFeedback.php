@@ -31,8 +31,18 @@ while ($proposalRow = pg_fetch_assoc($proposalsResult)) {
         $feedbackComment = pg_fetch_result($feedbackResult, 0, 'comment') ?? '';
     }
 
-    // Append the feedback comment to the proposal row
+    // Fetch the topic name for each proposal using the topic_id
+    $topicQuery = "SELECT topic_name FROM topics WHERE topic_id = $1";
+    $topicResult = pg_query_params($connection, $topicQuery, [$proposalRow['topic_id']]);
+    
+    $topicName = '';
+    if ($topicResult && pg_num_rows($topicResult) > 0) {
+        $topicName = pg_fetch_result($topicResult, 0, 'topic_name') ?? '';
+    }
+
+    // Append the feedback comment and topic name to the proposal row
     $proposalRow['comment'] = $feedbackComment;
+    $proposalRow['topic_name'] = $topicName;
 
     // Store the proposal row in the proposals array
     $proposals[] = $proposalRow;

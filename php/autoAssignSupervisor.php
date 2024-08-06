@@ -40,7 +40,7 @@ if (pg_num_rows($checkRequestResult) > 0) {
 $updateQuery = "INSERT INTO student_supervisor (student_unique_id, supervisor_unique_id, status)
     VALUES ($1, $2, 'accepted')
     ON CONFLICT (student_unique_id)
-    DO UPDATE SET supervisor_unique_id = EXCLUDED.supervisor_unique_id, status = 'pending'";
+    DO UPDATE SET supervisor_unique_id = $2, status = 'accepted'";
 $result = pg_query_params($connection, $updateQuery, [$student_unique_id, $supervisor_unique_id]);
 
 if (!$result) {

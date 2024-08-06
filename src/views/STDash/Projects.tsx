@@ -12,6 +12,7 @@ import {
   Card,
   Badge,
   Select,
+  TextInput,
 } from "@mantine/core";
 import { styles } from "@/src/data";
 import CryptoJS from "crypto-js";
@@ -23,6 +24,7 @@ import { router } from "expo-router";
 import { IconImports } from "@/assets";
 import { TouchableOpacity } from "react-native";
 import classes from "../../components/modals.module.css";
+import * as WebBrowser from "expo-web-browser";
 
 interface Topic {
   topic_id: string;
@@ -35,6 +37,7 @@ interface Topic {
 interface Proposal {
   proposal_id: string;
   topic_id: string;
+  topic_name: string;
   proposal_text: string;
   comment: string;
   status: "pending" | "accepted" | "declined";
@@ -43,6 +46,7 @@ interface Proposal {
 const Projects = () => {
   const [visible, setVisible] = useState(true);
   const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
   const [modalText, setModalText] = useState("");
   const successModalRef = React.useRef(null);
   const [uniqueId, setUniqueId] = useState("");
@@ -50,8 +54,10 @@ const Projects = () => {
   const [filteredProjects, setFilteredProjects] = useState<Topic[]>([]);
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [opened, setOpened] = useState(false);
+  const [opened2, setOpened2] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [proposalText, setProposalText] = useState("");
+  const [fileLink, setFileLink] = useState("");
   const [activeTab, setActiveTab] = useState<string | null>("projects");
 
   const toggleVisibility = () => {
@@ -60,6 +66,10 @@ const Projects = () => {
 
   const toggleVisibility2 = () => {
     setVisible2((prevVisible2) => !prevVisible2);
+  };
+
+  const toggleVisibility3 = () => {
+    setVisible3((prevVisible3) => !prevVisible3);
   };
 
   const handleSearch = (e: any) => {
@@ -169,12 +179,51 @@ const Projects = () => {
       });
   };
 
+  const handleProjectUpload = async () => {
+    toggleVisibility3();
+    axios
+      .post(
+        api.projectUpload,
+        {
+          student_unique_id: uniqueId,
+          file_link: fileLink,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((response) => {
+        toggleVisibility3();
+        handleOpenSuccessModal(response.data.message);
+        if (response.data.status) {
+          setTimeout(() => {
+            router.replace("/student/projects");
+          }, 1500);
+        }
+      })
+      .catch(() => {
+        toggleVisibility3();
+        handleOpenSuccessModal("Failed to submit project.");
+      });
+  };
+
   // Slide-in animation
   const slideInStyles = useSpring({
     from: { transform: "translateY(100%)" },
     to: { transform: "translateY(0%)" },
     config: { tension: 220, friction: 30 },
   });
+
+  const handlePressProject = async (link: string) => {
+    let result = await WebBrowser.openBrowserAsync(link);
+    if (result.type === "opened") {
+      console.log("Browser opened successfully");
+    } else if (result.type === "cancel") {
+      console.log("Browser closed by user");
+    }
+  };
 
   return (
     <Container className={`py-32 ${styles.body} text-text bg-primary h-full`}>
@@ -215,7 +264,7 @@ const Projects = () => {
             placeholder="Select a project"
             required
             size="md"
-            mb={`2rem`}
+            mb={"2rem"}
           />
           <Textarea
             value={proposalText}
@@ -225,7 +274,7 @@ const Projects = () => {
             minRows={6}
             required
             size="md"
-            mb={`2rem`}
+            mb={"2rem"}
           />
           <TouchableOpacity>
             <Button
@@ -237,12 +286,16 @@ const Projects = () => {
             </Button>
           </TouchableOpacity>
         </Modal>
-        <Tabs variant="outline" active={activeTab} onChange={setActiveTab}>
+        <Tabs
+          variant="outline"
+          active={activeTab}
+          onChange={setActiveTab}
+          defaultValue="projects"
+        >
           <Tabs.List grow>
             <Tabs.Tab value="projects">Projects</Tabs.Tab>
             <Tabs.Tab value="proposals">Proposals</Tabs.Tab>
           </Tabs.List>
-
           <Tabs.Panel value="projects">
             <input
               type="text"
@@ -253,7 +306,8 @@ const Projects = () => {
             <div>
               {filteredProjects.map((project) => (
                 <TouchableOpacity
-                  onPress={() => router.push(project.topic_link)}
+                  ///@ts-ignore
+                  onPress={() => handlePressProject(project.topic_link)}
                 >
                   <Card
                     key={project.topic_id}
@@ -267,13 +321,9 @@ const Projects = () => {
               ))}
             </div>
           </Tabs.Panel>
-
           <Tabs.Panel value="proposals">
             <div>
               {proposals.map((proposal) => {
-                const project = projects.find(
-                  (project) => project.topic_id === proposal.topic_id
-                );
                 return (
                   <Card
                     key={proposal.proposal_id}
@@ -282,7 +332,7 @@ const Projects = () => {
                     className="mb-4 mt-6"
                   >
                     <Group>
-                      <Text>{project?.topic_name}</Text>
+                      <Text>{proposal.topic_name}</Text>
                       <Badge
                         color={
                           proposal.status === "pending"
@@ -296,6 +346,13 @@ const Projects = () => {
                       </Badge>
                     </Group>
                     <Text className="mt-2">{proposal.comment}</Text>
+                    {proposal.status === "accepted" && (
+                      <TouchableOpacity onPress={() => setOpened2(true)}>
+                        <Button className="bg-secondary mt-4">
+                          Upload Project
+                        </Button>
+                      </TouchableOpacity>
+                    )}
                   </Card>
                 );
               })}
@@ -303,6 +360,36 @@ const Projects = () => {
           </Tabs.Panel>
         </Tabs>
       </animated.div>
+      <Modal
+        opened={opened2}
+        onClose={() => setOpened2(false)}
+        title="Upload Project"
+        classNames={classes}
+      >
+        <LoadingOverlay
+          visible={visible3}
+          zIndex={1000}
+          overlayProps={{ blur: 2 }}
+          loaderProps={{ color: "#03DAC5", type: "bars" }}
+        />
+        <TextInput
+          value={fileLink}
+          onChange={(e) => setFileLink(e.target.value)}
+          placeholder="Enter file link"
+          required
+          size="md"
+          mb={"2rem"}
+        />
+        <TouchableOpacity>
+          <Button
+            onClick={handleProjectUpload}
+            disabled={!fileLink}
+            className="bg-secondary h-[45px] text-white"
+          >
+            Submit
+          </Button>
+        </TouchableOpacity>
+      </Modal>
       <SuccessModal ref={successModalRef} text={modalText} />
     </Container>
   );

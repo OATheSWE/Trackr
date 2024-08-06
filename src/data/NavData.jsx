@@ -8,5 +8,6 @@ export const STLinks = [
   export const SPLinks = [
     { text: "Students", href: "/supervisor/students" },
     { text: "Projects", href: "/supervisor/projects" },
+    { text: "", href: "#" },
     { text: "Logout", href: "/supervisor/students" },
   ];

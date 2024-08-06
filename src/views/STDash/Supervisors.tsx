@@ -45,12 +45,12 @@ const StudentDashboard = () => {
   const secretKey =
     "21d1f43eee6a5780499e81575231952e7dd1f88274f72f6d0f78ffe213944aa9";
 
-    useEffect(() => {
-      const firstCheck = localStorage.getItem("ala");
-      if(!firstCheck) {
-        router.replace("/auth/login");
-      }
-    }, []);
+  useEffect(() => {
+    const firstCheck = localStorage.getItem("ala");
+    if (!firstCheck) {
+      router.replace("/auth/login");
+    }
+  }, []);
 
   useEffect(() => {
     // Retrieve the unique ID from localStorage
@@ -84,7 +84,30 @@ const StudentDashboard = () => {
             "Supervisor declined request. Another supervisor will be assigned."
           );
           setTimeout(() => {
-            handleAutoAssign();
+            toggleVisibility2();
+            axios
+              .post(
+                api.autoAssignSupervisor,
+                { encrypted_unique_id: data.encrypted_unique_id },
+                {
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                }
+              )
+              .then((response) => {
+                toggleVisibility2();
+                handleOpenSuccessModal(response.data.message);
+                if (response.data.status) {
+                  setTimeout(() => {
+                    router.replace("/student/supervisors");
+                  }, 1500);
+                }
+              })
+              .catch(() => {
+                toggleVisibility2();
+                handleOpenSuccessModal("Failed to auto-assign a supervisor.");
+              });
           }, 1500);
         } else if (responseData.status === "accepted") {
           const firstTimeAccepted = localStorage.getItem(`first-time-accepted`);

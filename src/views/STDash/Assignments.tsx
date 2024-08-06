@@ -17,6 +17,9 @@ interface Assignments {
 const Assignments = () => {
   const [visible, setVisible] = useState(true);
   const [assignments, setAssignments] = useState<Assignments[]>([]);
+  const [filteredAssignments, setFilteredAssignments] = useState<Assignments[]>(
+    []
+  );
   const secretKey =
     "21d1f43eee6a5780499e81575231952e7dd1f88274f72f6d0f78ffe213944aa9";
 
@@ -47,6 +50,7 @@ const Assignments = () => {
       .then((response) => {
         const responseData = response.data;
         setAssignments(responseData.assignments);
+        setFilteredAssignments(responseData.assignments);
         toggleVisibility();
       })
       .catch((err) => {
@@ -56,6 +60,19 @@ const Assignments = () => {
         });
       });
   }, []);
+
+  const handleSearch = (e: any) => {
+    const query = e.target.value.toLowerCase();
+    if (query) {
+      setFilteredAssignments(
+        assignments.filter((assignment) =>
+          assignment.student_name.toLowerCase().includes(query)
+        )
+      );
+    } else {
+      setFilteredAssignments(assignments);
+    }
+  };
 
   // Slide-in animation
   const slideInStyles = useSpring({
@@ -76,19 +93,25 @@ const Assignments = () => {
         <Text className="text-2xl font-bold mb-4 text-center">
           Your Course Mates
         </Text>
+        <input
+          type="text"
+          placeholder="Search course mates..."
+          onChange={handleSearch}
+          className="outline-0 w-full px-3 py-2 my-8 rounded-lg bg-transparent border-secondary border-[1.5px] text-text placeholder:text-text"
+        />
         <div>
-          {assignments.map((assignment, index) => (
+          {filteredAssignments.map((assignment, index) => (
             <TouchableOpacity>
               <Card
                 key={index}
                 shadow="xl"
                 padding="lg"
-                className="mb-4 cursor-pointer bg-primary text-white rounded-lg"
+                className="mb-4 cursor-pointer bg-secondary text-white rounded-lg"
               >
-                <Text className="font-semibold text-[14px]">
+                <Text className="font-semibold text-[15px] mb-4">
                   {assignment.student_name}
                 </Text>
-                <Text className="">{assignment.topic_name}</Text>
+                <Text className="mb-4">{assignment.topic_name}</Text>
                 <Text className="">{assignment.supervisor_name}</Text>
               </Card>
             </TouchableOpacity>
