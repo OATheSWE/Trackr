@@ -16,6 +16,7 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import ConfirmModal from "../ConfirmModal";
 import "./aside.css";
+import { IconImports } from "@/assets";
 
 export default function Aside({ asideLinks }) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -144,34 +145,42 @@ export default function Aside({ asideLinks }) {
           <ScrollArea
             h={`calc(100vh - 80px)`}
             mx="-md"
-            className="block mx-auto px-4"
+            className="block mx-auto"
             bg={`#141c26`}
           >
-            {asideLinks.slice(0, 3).map((link, index) => (
-              <Link
-                key={index}
-                href={`${link.href}`}
-                className={`font-sans flex text-[17px] text-white transition duration-300 ${
-                  isLinksDisabled && index !== 0
-                    ? "opacity-50 pointer-events-none"
-                    : "hover:text-gray-300"
-                }`}
-                onPress={
-                  index === 0 || !isLinksDisabled ? toggleDrawer : undefined
-                }
-              >
-                {link.text}
-              </Link>
-            ))}
-            {asideLinks.length > 0 && (
-              <Link
-                href={`${asideLinks[asideLinks.length - 1].href}`}
-                className={`font-sans text-[17px] text-white transition duration-300 `}
-                onPress={handleLogout}
-              >
-                {asideLinks[asideLinks.length - 1].text}
-              </Link>
-            )}
+            <div className="mt-4">
+              {asideLinks
+                .slice(0, asideLinks.length === 6 ? 5 : 4)
+                .map((link, index) => (
+                  <Link
+                    key={index}
+                    href={`${link.href}`}
+                    className={`font-sans flex text-[17px] text-white transition duration-300 py-3 border-t justify-between border-white px-4 ${
+                      isLinksDisabled && index !== 0
+                        ? "opacity-50 pointer-events-none"
+                        : "hover:text-gray-300"
+                    }`}
+                    onPress={
+                      index === 0 || !isLinksDisabled ? toggleDrawer : undefined
+                    }
+                  >
+                    {link.text}
+                    <br />
+                    <span className="mt-[1px]">
+                      <IconImports.RightArrow size={`15px`} color={`#fff`} />
+                    </span>
+                  </Link>
+                ))}
+              {asideLinks.length > 0 && (
+                <Link
+                  href={`${asideLinks[asideLinks.length - 1].href}`}
+                  className={`font-sans text-[19px] text-secondary transition pl-[30%] duration-300 uppercase`}
+                  onPress={handleLogout}
+                >
+                  {asideLinks[asideLinks.length - 1].text}
+                </Link>
+              )}
+            </div>
           </ScrollArea>
         </Drawer>
       </Box>
