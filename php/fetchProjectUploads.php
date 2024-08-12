@@ -29,7 +29,7 @@ while ($uploadRow = pg_fetch_assoc($uploadsResult)) {
     $file_link = $uploadRow['file_link'];
 
     // Fetch student name from the users table
-    $studentQuery = "SELECT name FROM users WHERE unique_id = $1";
+    $studentQuery = "SELECT name, unique_id FROM users WHERE unique_id = $1";
     $studentResult = pg_query_params($connection, $studentQuery, [$student_unique_id]);
 
     if (!$studentResult) {
@@ -40,6 +40,7 @@ while ($uploadRow = pg_fetch_assoc($uploadsResult)) {
 
     $studentRow = pg_fetch_assoc($studentResult);
     $student_name = $studentRow['name'] ?? '';
+    $student_id = $studentRow['unique_id'] ?? '';
 
     // Fetch topic name from the topics table
     $topicQuery = "SELECT topic_name FROM topics WHERE assigned_to = $1";
@@ -57,6 +58,7 @@ while ($uploadRow = pg_fetch_assoc($uploadsResult)) {
     // Append to the project uploads array
     $projectUploads[] = [
         'student_name' => $student_name,
+        'student_id' => $student_id,
         'topic_name' => $topic_name,
         'file_link' => $file_link
     ];

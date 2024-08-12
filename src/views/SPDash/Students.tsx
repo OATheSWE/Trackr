@@ -148,7 +148,7 @@ const Students = () => {
               padding="lg"
               className="mb-4 cursor-pointer bg-text text-black rounded-lg"
             >
-              <Text size="lg">{student.student_name}</Text>
+              <Text size="lg">{student.student_name}<br />{student.student_unique_id}</Text>
               <Group mt="md">
                 <TouchableOpacity
                   onPress={() =>

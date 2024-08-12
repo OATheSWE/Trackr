@@ -34,6 +34,7 @@ interface Proposals {
 
 interface Uploads {
   student_name: string;
+  student_id: string;
   topic_name: string;
   file_link: string;
 }
@@ -254,6 +255,8 @@ const SPProjects = () => {
                 >
                   <Text className="text-[14px] font-semibold">
                     {proposal.student_name}
+                    <br />
+                    {proposal.student_unique_id}
                   </Text>
                   <Text>{proposal.topic_name}</Text>
                 </Card>
@@ -271,6 +274,8 @@ const SPProjects = () => {
               >
                 <Text className="text-[14px] font-semibold">
                   {upload.student_name}
+                  <br />
+                  {upload.student_id}
                 </Text>
                 <Text className="my-4">{upload.topic_name}</Text>
                 <TouchableOpacity>
