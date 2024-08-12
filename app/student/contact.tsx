@@ -11,13 +11,13 @@ const Contact = () => {
         following channels:
       </Text>
       <Text className="text-lg">
-        <strong>Email:</strong> support@trackr.com
+        <strong>Email:</strong> support@trackr.com.ng
       </Text>
       <Text className="text-lg">
-        <strong>Phone:</strong> +123-456-7890
+        <strong>Phone:</strong> +234 808 420 4157
       </Text>
       <Text className="text-lg">
-        <strong>Address:</strong> 123 Education Avenue, Learning City, Country
+        <strong>Address:</strong> No 15, ugbomro road, Effurun
       </Text>
       <Text className="text-lg mt-4">
         We are here to assist you with any questions or issues you may have.

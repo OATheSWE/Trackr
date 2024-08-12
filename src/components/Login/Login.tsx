@@ -99,7 +99,7 @@ const Login = () => {
         visible={visible}
         zIndex={1000}
         overlayProps={{ blur: 2 }}
-        loaderProps={{ color: "#03DAC5", type: "bars" }}
+        loaderProps={{ color: "#D8BFD8", type: "bars" }}
       />
       <animated.div style={slideInStyles} className={`max-w-[600px] w-full`}>
         <h1 className="text-2xl font-bold mb-4 text-center">Welcome Back,</h1>

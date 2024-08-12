@@ -115,7 +115,7 @@ const Projects = () => {
       .catch((err) => {
         notifications.show({
           message: "A network error occurred",
-          color: "#03DAC5",
+          color: "#D8BFD8",
         });
       });
 
@@ -132,7 +132,7 @@ const Projects = () => {
       .catch((err) => {
         notifications.show({
           message: "A network error occurred",
-          color: "#03DAC5",
+          color: "#D8BFD8",
         });
       });
   }, []);
@@ -231,7 +231,7 @@ const Projects = () => {
         visible={visible}
         zIndex={1000}
         overlayProps={{ blur: 2 }}
-        loaderProps={{ color: "#03DAC5", type: "bars" }}
+        loaderProps={{ color: "#D8BFD8", type: "bars" }}
       />
       <animated.div style={slideInStyles}>
         <TouchableOpacity onPress={() => setOpened(true)}>
@@ -252,7 +252,7 @@ const Projects = () => {
             visible={visible2}
             zIndex={1000}
             overlayProps={{ blur: 2 }}
-            loaderProps={{ color: "#03DAC5", type: "bars" }}
+            loaderProps={{ color: "#D8BFD8", type: "bars" }}
           />
           <Select
             data={projects.map((project) => ({
@@ -370,7 +370,7 @@ const Projects = () => {
           visible={visible3}
           zIndex={1000}
           overlayProps={{ blur: 2 }}
-          loaderProps={{ color: "#03DAC5", type: "bars" }}
+          loaderProps={{ color: "#D8BFD8", type: "bars" }}
         />
         <TextInput
           value={fileLink}

@@ -116,7 +116,7 @@ const SPProjects = () => {
       .catch((err) => {
         notifications.show({
           message: "A network error occurred",
-          color: "#03DAC5",
+          color: "#D8BFD8",
         });
       });
 
@@ -133,7 +133,7 @@ const SPProjects = () => {
       .catch((err) => {
         notifications.show({
           message: "A network error occurred",
-          color: "#03DAC5",
+          color: "#D8BFD8",
         });
       });
   }, []);
@@ -220,7 +220,7 @@ const SPProjects = () => {
         visible={visible}
         zIndex={1000}
         overlayProps={{ blur: 2 }}
-        loaderProps={{ color: "#03DAC5", type: "bars" }}
+        loaderProps={{ color: "#D8BFD8", type: "bars" }}
       />
       <animated.div style={slideInStyles}>
         <Text className="text-2xl font-bold mb-4 text-center">
@@ -282,7 +282,7 @@ const SPProjects = () => {
                   <Button
                     variant="outline"
                     // className="text-secondary"
-                    color={`#03DAC5`}
+                    color={`#D8BFD8`}
                     ///@ts-ignore
                     onClick={() => handlePressLink(upload.file_link)}
                   >
@@ -305,7 +305,7 @@ const SPProjects = () => {
             visible={visible2}
             zIndex={1000}
             overlayProps={{ blur: 2 }}
-            loaderProps={{ color: "#03DAC5", type: "bars" }}
+            loaderProps={{ color: "#D8BFD8", type: "bars" }}
           />
           {selectedProposal && (
             <div>

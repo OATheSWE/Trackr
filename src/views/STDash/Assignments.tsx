@@ -57,7 +57,7 @@ const Assignments = () => {
       .catch((err) => {
         notifications.show({
           message: "A network error occurred",
-          color: "#03DAC5",
+          color: "#D8BFD8",
         });
       });
   }, []);
@@ -88,7 +88,7 @@ const Assignments = () => {
         visible={visible}
         zIndex={1000}
         overlayProps={{ blur: 2 }}
-        loaderProps={{ color: "#03DAC5", type: "bars" }}
+        loaderProps={{ color: "#D8BFD8", type: "bars" }}
       />
       <animated.div style={slideInStyles}>
         <Text className="text-2xl font-bold mb-4 text-center">

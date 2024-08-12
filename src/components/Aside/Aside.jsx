@@ -117,11 +117,12 @@ export default function Aside({ asideLinks }) {
         visible={visible}
         zIndex={1000}
         overlayProps={{ blur: 2 }}
-        loaderProps={{ color: "#03DAC5", type: "bars" }}
+        loaderProps={{ color: "#D8BFD8", type: "bars" }}
       />
       <Box className="fixed z-[9999999999999] w-full">
         <nav
-          className={`flex justify-between items-center shadow-[0_4px_6px_-1px_rgba(3,218,197,0.1),0_2px_4px_-1px_rgba(3,218,197,0.1)] bg-primary md:px-8 text-white font-sans h-[80px] ${styles.body}`}
+          className={`flex justify-between items-center shadow-[0_4px_6px_-1px_rgba(216,191,216,0.1),0_2px_4px_-1px_rgba(216,191,216,0.1)]
+ bg-primary md:px-8 text-white font-sans h-[80px] ${styles.body}`}
         >
           <Burger
             opened={drawerOpened}
