@@ -214,7 +214,7 @@ const SPProjects = () => {
   };
 
   return (
-    <Container className={`py-32 ${styles.body} text-text bg-primary h-full`}>
+    <Container className={`py-32 ${styles.body} text-text bg-primary h-[400vh]`}>
       <LoadingOverlay
         visible={visible}
         zIndex={1000}

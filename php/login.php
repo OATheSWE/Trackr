@@ -4,6 +4,11 @@ include 'db.php';
 // Retrieve POST data
 $uniqueId = $_POST['uniqueId'] ?? '';
 
+// Validate input data
+if (empty($uniqueId)) {
+    echo json_encode(['status' => 'error', 'message' => 'Unique ID is required']);
+    exit;
+}
 
 // Query to check if the unique ID exists
 $query = "SELECT user_type FROM users WHERE unique_id = $1";
@@ -21,7 +26,8 @@ if ($result) {
         echo json_encode([
             'status' => 'success',
             'message' => 'Login successful.',
-            'link' => $redirectUrl
+            'link' => $redirectUrl,
+            'user_type' => $userType,
         ]);
     } else {
         // Unique ID not found

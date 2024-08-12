@@ -122,7 +122,7 @@ const Students = () => {
   };
 
   return (
-    <div className={`py-32 ${styles.body} text-text bg-primary h-full`}>
+    <div className={`py-32 ${styles.body} text-text bg-primary h-[400vh]`}>
       <LoadingOverlay
         visible={visible}
         zIndex={1000}

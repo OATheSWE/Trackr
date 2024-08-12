@@ -12,6 +12,7 @@ interface Assignments {
   student_name: string;
   topic_name: string;
   supervisor_name: string;
+  student_id: string;  
 }
 
 const Assignments = () => {
@@ -82,7 +83,7 @@ const Assignments = () => {
   });
 
   return (
-    <Container className={`py-32 ${styles.body} text-text bg-primary h-full`}>
+    <Container className={`py-32 ${styles.body} text-text bg-primary h-[300vh]`}>
       <LoadingOverlay
         visible={visible}
         zIndex={1000}
@@ -109,7 +110,7 @@ const Assignments = () => {
                 className="mb-4 cursor-pointer bg-secondary text-white rounded-lg"
               >
                 <Text className="font-semibold text-[15px] mb-4">
-                  {assignment.student_name}
+                  {assignment.student_name}<br />{assignment.student_id}
                 </Text>
                 <Text className="mb-4">{assignment.topic_name}</Text>
                 <Text className="">{assignment.supervisor_name}</Text>

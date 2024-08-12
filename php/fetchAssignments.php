@@ -28,9 +28,10 @@ if (empty($student_department)) {
     exit;
 }
 
-// Fetch topics from the topics table where topic_department matches student_department and assigned_to is not null
-$topicsQuery = "SELECT * FROM topics WHERE topic_department = $1 AND assigned_to IS NOT NULL";
-$topicsResult = pg_query_params($connection, $topicsQuery, [$student_department]);
+// Fetch topics from the topics table where topic_department matches student_department, 
+// assigned_to is not null, and assigned_to is not the same as student_unique_id
+$topicsQuery = "SELECT * FROM topics WHERE topic_department = $1 AND assigned_to IS NOT NULL AND assigned_to != $2";
+$topicsResult = pg_query_params($connection, $topicsQuery, [$student_department, $student_unique_id]);
 
 if (!$topicsResult) {
     $error = pg_last_error($connection);
@@ -57,7 +58,7 @@ while ($topicRow = pg_fetch_assoc($topicsResult)) {
     $supervisor_unique_id = $supervisorRow['supervisor_unique_id'] ?? '';
 
     // Fetch student and supervisor names from the users table
-    $studentQuery = "SELECT name FROM users WHERE unique_id = $1";
+    $studentQuery = "SELECT name, unique_id FROM users WHERE unique_id = $1";
     $studentResult = pg_query_params($connection, $studentQuery, [$assigned_to]);
 
     $supervisorQuery = "SELECT name FROM users WHERE unique_id = $1";
@@ -74,12 +75,14 @@ while ($topicRow = pg_fetch_assoc($topicsResult)) {
 
     $student_name = $studentRow['name'] ?? '';
     $supervisor_name = $supervisorRow['name'] ?? '';
+    $student_id = $studentRow['unique_id'] ?? '';
 
-    if (!empty($student_name) && !empty($supervisor_name)) {
+    if (!empty($student_name) && !empty($supervisor_name) && !empty($student_id)) {
         $assignments[] = [
             'student_name' => $student_name,
             'supervisor_name' => $supervisor_name,
-            'topic_name' => $topic_name
+            'topic_name' => $topic_name,
+            'student_id' => $student_id,
         ];
     }
 }

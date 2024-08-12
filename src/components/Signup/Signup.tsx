@@ -71,7 +71,6 @@ const Signup = () => {
         toggleVisibility();
         handleOpenSuccessModal(response.data.message);
         form.reset();
-        localStorage.setItem("first-time", "true");
         setTimeout(() => {
             router.push("/auth/login");
         }, 1500)

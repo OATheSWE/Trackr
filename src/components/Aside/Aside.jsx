@@ -38,6 +38,7 @@ export default function Aside({ asideLinks }) {
     toggleVisibility();
     localStorage.removeItem("ala");
     localStorage.removeItem("first-time-accepted");
+    localStorage.removeItem("user_type");
     setTimeout(() => {
       router.replace("/auth/login");
     }, 2000);
