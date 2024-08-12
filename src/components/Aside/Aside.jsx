@@ -143,7 +143,7 @@ export default function Aside({ asideLinks }) {
           position="left"
         >
           <ScrollArea
-            h={`calc(100vh - 80px)`}
+            h={`91vh`}
             mx="-md"
             className="block mx-auto"
             bg={`#141c26`}
