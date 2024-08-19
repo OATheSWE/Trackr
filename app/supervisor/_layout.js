@@ -1,6 +1,6 @@
 import { Slot } from "expo-router";
 import { SPLinks } from "../../src/data/NavData";
-import { Aside } from "@/src/components";
+import { Aside } from "../../src/components";
 
 const App = () => {
   return (

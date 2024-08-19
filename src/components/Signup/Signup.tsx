@@ -32,6 +32,7 @@ const Signup = () => {
       name: "",
       department: "",
       email: "",
+      strengths: "",
       userType: "",
     },
 
@@ -40,6 +41,7 @@ const Signup = () => {
       department: (value) => (value ? null : "Department is required"),
       email: (value) =>
         /^\S+@\S+$/.test(value) ? null : "Invalid email address",
+      strengths: (value) => (value ? null : "Strengths is required"),
       userType: (value) => (value ? null : "User type is required"),
     },
   });
@@ -137,6 +139,13 @@ const Signup = () => {
             placeholder="Enter your email"
             {...form.getInputProps("email")}
             error={form.errors.email}
+            mb={`lg`}
+          />
+          <TextInput
+            label="Core Strengths"
+            placeholder="eg AI, ML, Cyber Security, Web3"
+            {...form.getInputProps("strengths")}
+            error={form.errors.strengths}
             mb={`lg`}
           />
           <Select

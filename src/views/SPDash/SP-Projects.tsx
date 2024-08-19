@@ -25,6 +25,7 @@ import { router } from "expo-router";
 
 interface Proposals {
   student_name: string;
+  student_strengths: string;
   student_unique_id: string;
   topic_name: string;
   topic_id: string;
@@ -258,6 +259,10 @@ const SPProjects = () => {
                     <br />
                     {proposal.student_unique_id}
                   </Text>
+                  <br />
+
+                  <Text>Strengths: {proposal.student_strengths}</Text>
+                  <br />
                   <Text>{proposal.topic_name}</Text>
                 </Card>
               </TouchableOpacity>
