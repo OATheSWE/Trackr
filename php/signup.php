@@ -44,6 +44,7 @@ function sendEmail($recipient, $subject, $body) {
 $name = $_POST['name'] ?? '';
 $department = $_POST['department'] ?? '';
 $email = $_POST['email'] ?? '';
+$strengths = $_POST['strengths'] ?? '';
 $userType = $_POST['userType'] ?? '';
 
 // Validate user type
@@ -56,8 +57,8 @@ if ($userType !== 'student' && $userType !== 'supervisor') {
 $uniqueId = ($userType === 'student') ? generateUniqueId('ST') : generateUniqueId('SP');
 
 // Insert data into the database
-$query = "INSERT INTO users (name, department, email, user_type, unique_id) VALUES ($1, $2, $3, $4, $5)";
-$result = pg_query_params($connection, $query, [$name, $department, $email, $userType, $uniqueId]);
+$query = "INSERT INTO users (name, department, email, user_type, unique_id, strengths) VALUES ($1, $2, $3, $4, $5, $6)";
+$result = pg_query_params($connection, $query, [$name, $department, $email, $userType, $uniqueId, $strengths]);
 
 if ($result) {
     // Prepare email content

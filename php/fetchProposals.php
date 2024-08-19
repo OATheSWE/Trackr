@@ -47,10 +47,11 @@ while ($proposalRow = pg_fetch_assoc($proposalsResult)) {
     $topic_id = $proposalRow['topic_id'];
 
     // Fetch student name
-    $studentQuery = "SELECT name FROM users WHERE unique_id = $1";
+    $studentQuery = "SELECT name, strengths FROM users WHERE unique_id = $1";
     $studentResult = pg_query_params($connection, $studentQuery, [$student_unique_id]);
     $studentRow = pg_fetch_assoc($studentResult);
     $student_name = $studentRow['name'] ?? '';
+    $student_strengths = $studentRow['strengths'] ?? '';
 
     // Fetch topic name
     $topicQuery = "SELECT topic_name FROM topics WHERE topic_id = $1";
@@ -60,11 +61,13 @@ while ($proposalRow = pg_fetch_assoc($proposalsResult)) {
 
     // Append the fetched details to the proposal row
     $proposalRow['student_name'] = $student_name;
+    $proposalRow['student_strengths'] = $student_strengths;
     $proposalRow['topic_name'] = $topic_name;
 
     // Only keep required fields
     $proposals[] = [
         'student_name' => $student_name,
+        'student_strengths' => $student_strengths,
         'student_unique_id' => $student_unique_id,
         'topic_name' => $topic_name,
         'topic_id' => $topic_id,
